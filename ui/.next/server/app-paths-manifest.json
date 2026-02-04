@@ -1,0 +1,10 @@
+{
+  "/page": "app/page.js",
+  "/game/page": "app/game/page.js",
+  "/profile/page": "app/profile/page.js",
+  "/login/page": "app/login/page.js",
+  "/map/page": "app/map/page.js",
+  "/leaderboard/page": "app/leaderboard/page.js",
+  "/onboarding/page": "app/onboarding/page.js",
+  "/settings/page": "app/settings/page.js"
+}

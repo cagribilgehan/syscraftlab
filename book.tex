@@ -1,7 +1,11 @@
 \documentclass[11pt,a4paper]{book}
-\usepackage[utf8]{inputenc}
-\usepackage[T1]{fontenc}
-\usepackage[turkish]{babel}
+\usepackage{fontspec}
+\defaultfontfeatures{Ligatures=TeX}
+\setmainfont{DejaVu Serif}
+\setsansfont{DejaVu Sans}
+\setmonofont{DejaVu Sans Mono}
+\usepackage{polyglossia}
+\setmainlanguage{turkish}
 \usepackage{geometry}
 \usepackage{graphicx}
 \usepackage{hyperref}
@@ -30,7 +34,25 @@
     stringstyle=\color{red!70!black},
     showstringspaces=false,
     tabsize=2,
-    literate={ı}{{\i}}1 {İ}{{\.I}}1 {ğ}{{\u{g}}}1 {Ğ}{{\u{G}}}1 {ü}{{\"u}}1 {Ü}{{\"U}}1 {ş}{{\c{s}}}1 {Ş}{{\c{S}}}1 {ö}{{\"o}}1 {Ö}{{\"O}}1 {ç}{{\c{c}}}1 {Ç}{{\c{C}}}1
+    extendedchars=true,
+    literate=
+        {ı}{{\i}}1
+        {İ}{{\.I}}1
+        {ğ}{{\u{g}}}1
+        {Ğ}{{\u{G}}}1
+        {ü}{{\"u}}1
+        {Ü}{{\"U}}1
+        {ş}{{\c{s}}}1
+        {Ş}{{\c{S}}}1
+        {ö}{{\"o}}1
+        {Ö}{{\"O}}1
+        {ç}{{\c{c}}}1
+        {Ç}{{\c{C}}}1
+        {â}{{\^a}}1
+        {'}{{`}}1
+        {'}{{'}}1
+        {"}{{"}}1
+        {"}{{''}}1
 }
 
 \newtcolorbox{ipucu}{colback=blue!5,colframe=blue!75!black,title=\.Ipucu}
@@ -363,6 +385,7 @@ işleniyor” mesajı gösterildi, tamamlandığında bildirim gönderildi.
 10 kat yükü kaldırabilmesi sağlandı.
 
 
+\end{ornekolay}
 \subsection{2.1.2 Latency’nin Psikolojisi: 100 Milisaniye Kuralı}
 Google’ınyaptığıaraştırmalar,insanalgısınınlatencykonusundakritikeşikleriçerdiğiniortaya
 
@@ -499,6 +522,7 @@ Aşırı önbellekleme: Her şeyi önbelleğe alarak bellek tüketimi patlar, ga
 duraklama süreleri (GC pauses) latency’yi vurur.
 
 
+\end{dikkat}
 \section{2.2 Ölçeklenebilirlik: Büyümenin Matematiği}
 Birstartuphayaledin.Üçgeliştiricininbirgarajofisindegeliştirdiği,aydabirkaçbinkullanıcıya
 
@@ -569,6 +593,7 @@ Ders: Ölçekleme kararları “ya o ya bu” değildir. Hibrit yaklaşımlar ge
 çözümdür.
 
 
+\end{ornekolay}
 \subsection{2.2.2 Stateless vs. Stateful: Devletin Ağırlığı}
 Yatay ölçeklemenin önündeki en büyük engel durumdur (state). Bir kullanıcının oturum bilgisi
 
@@ -645,6 +670,7 @@ nizi” tanımlayın: hangi bileşenler, hangi metrikler kritik eşiklere yakla�
 aksiyonlar alınacak?
 
 
+\end{dikkat}
 \section{2.3 Güvenilirlik: Çökmeyecek Sistem Yoktur}
 Bir havayolu şirketinin rezervasyon sistemini düşünün. Sistem çökerse ne olur? Yüzlerce uçuş
 
@@ -692,6 +718,7 @@ kesinti satış kaybıdır ve 4 nines hedefi makul olabilir. Ancak bir dahili y�
 için 2 nines yeterli olabilir—mesai saatleri dışında kimse kullanmıyorsa zaten.
 
 
+\end{ipucu}
 \subsection{2.3.2 Hata Modelleri: Sistemler Nasıl Ölür?}
 Güvenilir sistemler tasarlamak için önce sistemlerin nasıl başarısız olduğunu anlamak gerekir.
 
@@ -742,35 +769,26 @@ diğerleri yükü üstlenir, kesinti olmaz. Dezavantajı karmaşıklıktır: dur
 
 çakışma çözümü (conflict resolution) gibi sorunlar ortaya çıkar.
 
+\begin{lstlisting}
 COMPONENT: Payment Service
-
 REDUNDANCY STRATEGY: Active-Active
 
 DEPLOYMENT:
-
-\hfill - Region: eu-west-1 (Primary)
-
-Instances: 3
-
-\hfill - Region: eu-central-1 (Backup)
-
-Instances: 3
+  - Region: eu-west-1 (Primary)
+    Instances: 3
+  - Region: eu-central-1 (Backup)
+    Instances: 3
 
 FAILOVER LOGIC:
-
-IF region_health_check(eu-west-1) FAILS:
-
-route_traffic_to(eu-central-1)
-
-alert_ops_team("eu-west-1 down, failover active")
+  IF region_health_check(eu-west-1) FAILS:
+    route_traffic_to(eu-central-1)
+    alert_ops_team("eu-west-1 down, failover active")
 
 DATA SYNC:
-
-\hfill - Async replication (eventual consistency)
-
-\hfill - On conflict: last-write-wins
-
-\hfill - Critical inconsistency risk: 0.01% (acceptable)
+  - Async replication (eventual consistency)
+  - On conflict: last-write-wins
+  - Critical inconsistency risk: 0.01% (acceptable)
+\end{lstlisting}
 
 \textit{Listing 2.3: Redundancy strategy example}
 
@@ -825,6 +843,7 @@ deyiz” düşüncesi, sayısız güvenlik felaketinin sebebidir. Modern saldır
 phishing ile, sosyal mühendislikle, tedarik zinciri saldırılarıyla—gelebilir.
 
 
+\end{dikkat}
 \subsection{2.4.2 Zero Trust: Kimseye Güvenme}
 Geleneksel güvenlik modeli “kale ve hendek” yaklaşımıydı: dışarısı tehlikeli, içerisi güvenli.
 
@@ -1027,6 +1046,7 @@ mimarın günlük kararlarının pusulasıdır.
 
 
 
+\end{ornekolay}
 \chapter{Bölüm 3}
 Temel Yazılım Prensipleri: Mimarın
 
@@ -1140,6 +1160,8 @@ departmandanonayalmamgerekir?”Cevapbirdenfazlaysa,muhtemelensorumlulukları
 ayırmalısınız.
 
 
+\end{ipucu}
+\end{ornekolay}
 \subsection{3.1.2 O – Open/Closed Principle (Açık/Kapalı İlkesi)}
 Open/Closed Principle (OCP)
 
@@ -1258,6 +1280,8 @@ destekleyebilir mi?” sorusuyla verin. Davranışsal uyumluluk, türsel uyumlul
 önemlidir.
 
 
+\end{dikkat}
+\end{ornekolay}
 \subsection{3.1.4 I – Interface Segregation Principle (Arayüz Ayrımı İlkesi)}
 Interface Segregation Principle (ISP)
 
@@ -1409,6 +1433,8 @@ bozmaya yol açar. Bu duruma “accidental duplication” denir ve aslında DRY 
 sayılmaz.
 
 
+\end{dikkat}
+\end{ornekolay}
 \subsection{3.2.2 KISS – Keep It Simple, Stupid}
 KISS
 
@@ -1476,6 +1502,7 @@ Kod yazarken kendinize sorun: “Altı ay sonra bu kodu ilk kez gören bir geli�
 dakikada ne yaptığını anlayabilir mi?” Cevap “hayır” ise, basitleştirin.
 
 
+\end{ipucu}
 \section{3.3 Encapsulation ve Separation of Concerns}
 Bu iki ilke, modüler tasarımın temelini oluşturur ve SOLID’den bile eskidir.
 
@@ -1738,6 +1765,7 @@ request = HttpRequestBuilder()
 Builder, “fluent interface” ile birleştiğinde son derece okunabilir kod üretir.
 
 
+\end{dikkat}
 \subsection{3.4.2 Structural Patterns: Yapıları Birleştirmek}
 Bu desenler, sınıfları ve nesneleri daha büyük yapılar halinde organize etmeyi ele alır.
 
@@ -1818,7 +1846,7 @@ payment.charge(order.card, order.total)
 
 label = shipping.createLabel(order)
 
-notification.sendEmail(order.email, "order_confirmation")
+notification.sendEmail(order.email, "order\_confirmation")
 
 RETURN OrderConfirmation(label)
 
@@ -2147,6 +2175,7 @@ anlamıyla öğrenmediniz mi? O zaman monolit ile başlayın. Mikro servisler �
 ağrısı”nı çözer; önce büyümeniz gerekir.
 
 
+\end{ipucu}
 \subsection{4.1.3 Monolitin Zorlukları}
 Ancak sistem büyüdükçe, monolit ağırlaşmaya başlar:
 
@@ -2193,6 +2222,7 @@ Ders: Monolit, erken aşamada doğrudur. Ama büyümenin sinyallerini okuyup, za
 nında evrimleşmek gerekir.
 
 
+\end{ornekolay}
 \subsection{4.1.4 Modüler Monolit: Orta Yol}
 Peki tam mikro servislere geçmeden, monolitin sorunlarını hafifletmek mümkün mü? İşte
 
@@ -2289,6 +2319,7 @@ Modüler monolit, mikro servislere geçişin “hazırlık kampı”dır. İyi t
 ileride minimal değişiklikle ayrı servislere dönüştürülebilir.
 
 
+\end{dikkat}
 \section{4.2 Katmanlı Mimari: Klasik Yaklaşım}
 Katmanlı mimari (Layered Architecture), yazılım dünyasının en yaygın ve en eski desenidir.
 
@@ -2535,6 +2566,7 @@ test ederken, Infrastructure’ı mock’larsınız. Veritabanı, e-posta, haric
 arayüzlerdir ve kolayca taklit edilebilir.
 
 
+\end{ipucu}
 \section{4.4 Domain-Driven Design: İş Uzmanlarıyla Ortak Dil}
 Eric Evans’ın 2003’te yayımladığı “Domain-Driven Design” kitabı, yazılım mimarisine yeni bir
 
@@ -2552,7 +2584,7 @@ kod içinde kullanılır.
 
 “Müşteri sepete ürün ekler” diye konuşuyorsak, kodda da Customer, Cart, Product,
 
-addToCart() görmeliyiz. “User inserts item into shopping_basket” gibi farklı terimler kullan-
+addToCart() görmeliyiz. “User inserts item into shopping\_basket” gibi farklı terimler kullan-
 
 mak, çeviri hataları yaratır.
 
@@ -2577,6 +2609,7 @@ karşılıkla eşleştirildi. Kod yeniden düzenlendi; tutarsız isimler düzelt
 herkes aynı dili konuşmaya başladı.
 
 
+\end{ornekolay}
 \subsection{4.4.2 Bounded Context: Sınırlı Bağlam}
 Büyük sistemlerde tek bir “evrensel model” yoktur. Aynı kavram, farklı bağlamlarda farklı
 
@@ -2601,7 +2634,7 @@ malarıyla yapılır.
 // SALES CONTEXT
 // In this context, Customer is a sales lead
 \end{lstlisting}
-BOUNDED_CONTEXT Sales:
+BOUNDED\_CONTEXT Sales:
 
 \begin{lstlisting}
 CLASS Customer:
@@ -2613,7 +2646,7 @@ FUNCTION isActiveCustomer()
 // BILLING CONTEXT
 // In this context, Customer is a billing entity
 \end{lstlisting}
-BOUNDED_CONTEXT Billing:
+BOUNDED\_CONTEXT Billing:
 
 \begin{lstlisting}
 CLASS Customer:
@@ -2686,6 +2719,7 @@ Product’ın kendisini değil, productId’yi tutar. Bu, aggregate’lerin bağ
 ve veritabanı düzeyinde parçalamayı (sharding) mümkün kılar.
 
 
+\end{dikkat}
 \subsection{4.4.4 Entity vs Value Object}
 DDD, domain nesnelerini iki kategoriye ayırır:
 
@@ -2877,6 +2911,7 @@ boğuldu.
 BÖLÜM 5. DAĞITIK SİSTEMLER VE MİKROSERVİSLER: BÜYÜMENİN BEDELİ
 
 
+\end{dikkat}
 \subsection{5.1.2 Strangler Fig Pattern: Adım Adım Göç}
 Monolit’i bir gecede mikroservislere dönüştürmek intihar. Strangler Fig Pattern, adım
 
@@ -2962,6 +2997,7 @@ değerli” olan seçin.
 5.2. SERVİSLER ARASI İLETİŞİM: SENKRON VS ASENKRON
 
 
+\end{ipucu}
 \section{5.2 Servisler Arası İletişim: Senkron vs Asenkron}
 Mikroservis mimarisinin en kritik kararlarından biri, servislerin nasıl iletişeceğidir. İki temel
 
@@ -3026,7 +3062,7 @@ BÖLÜM 5. DAĞITIK SİSTEMLER VE MİKROSERVİSLER: BÜYÜMENİN BEDELİ
 
 message CreateOrderResponse {
 
-string order_id = 1;
+string order\_id = 1;
 
 string status = 2;
 
@@ -3074,6 +3110,7 @@ Ders: Senkron bağımlılıklar dikkatli yönetilmeli. Timeout’lar, circuit br
 head’ler kritik önem taşıyor.
 
 
+\end{ornekolay}
 \subsection{5.2.3 Circuit Breaker Pattern: Koruyucu Sigorta}
 Elektrik sistemlerindeki sigortalardan esinlenen Circuit Breaker, başarısız çağrıları tespit
 
@@ -3335,7 +3372,7 @@ RETURN response
 
 CATCH:
 
-metrics.record("payment_call", success=false)
+metrics.record("payment\_call", success=false)
 
 IF attempt == 3: THROW
 
@@ -3441,7 +3478,7 @@ RETURN SagaCompleted(order)
 // Failure at Charge:
 // Reserve (OK) -> Charge (FAIL) -> Release (Compensate) ->
 \end{lstlisting}
-SAGA_FAILED
+SAGA\_FAILED
 
 \textit{Listing 5.7: Saga - Orchestration approach}
 
@@ -3453,6 +3490,7 @@ alamazsınız”. Bu tür işlemleri saga’nın sonuna koyun veya ayrı bir mek
 (örneğin “iptal e-postası”) ele alın.
 
 
+\end{dikkat}
 \subsection{5.4.2 Outbox Pattern: Güvenilir Mesaj Yayınlama}
 Saga’nın kritik bir problemi: veritabanı güncellemesi yapıp ardından mesaj yayınlarken, ikisi
 
@@ -3862,7 +3900,7 @@ BÖLÜM 6. OLAY GÜDÜMLÜ MİMARİ: SİSTEMLERİN SİNİR AĞI
 
 Consumer-1:
 
-current_offset = 42
+current\_offset = 42
 
 \begin{lstlisting}
 // "I’ve processed messages 0-42 in partition 0"
@@ -3892,6 +3930,7 @@ Kafka, “olayların tarihçesi”ni tutmak için idealdir—geri gidip olaylar�
 siniz. RabbitMQ ise “bir kere işlen ve unut” senaryoları için daha uygundur.
 
 
+\end{ipucu}
 \subsection{6.3.3 RabbitMQ ve Mesaj Kuyrukları}
 RabbitMQ,AMQPprotokolünüimplementedenpopülerbirmesajkuyruksistemidir.Kafka’dan
 
@@ -3993,14 +4032,14 @@ geçmişi de bilirsiniz.
 \end{lstlisting}
 TABLE orders:
 
-id & customer_id & status & total & updated_at \\
+id & customer\_id & status & total & updated\_at \\
 1 & cust-123 & SHIPPED & 99.99 & 2026-01-31 \\
 \begin{lstlisting}
 // EVENT SOURCING APPROACH - Store events
 \end{lstlisting}
-TABLE order_events:
+TABLE order\_events:
 
-event_id & aggregate_id & event_type & event_data & occurred_at \\
+event\_id & aggregate\_id & event\_type & event\_data & occurred\_at \\
 1 & order-1 & OrderCreated & {...} & 2026-01-30T10:00 \\
 2 & order-1 & ItemAdded & {...} & 2026-01-30T10:05 \\
 3 & order-1 & PaymentReceived & {...} & 2026-01-30T11 \\
@@ -4096,6 +4135,7 @@ kill’dir. Karmaşık iş mantığı, denetim gereksinimleri veya temporal quer
 değerlendirin.
 
 
+\end{dikkat}
 \subsection{6.4.3 Snapshots: Performans Optimizasyonu}
 Binlerce olay replay etmek yavaş olabilir. Snapshot, belirli aralıklarla durumun anlık görün-
 
@@ -4104,9 +4144,9 @@ tüsünü saklar.
 \begin{lstlisting}
 // SNAPSHOT TABLE
 \end{lstlisting}
-TABLE order_snapshots:
+TABLE order\_snapshots:
 
-aggregate_id & version & state_data & created_at \\
+aggregate\_id & version & state\_data & created\_at \\
 order-1 & 100 & {...} & 2026-01-30 \\
 
 6.5. CQRS: OKUMA VE YAZMANIN AYRILMASI
@@ -4204,7 +4244,7 @@ FUNCTION getCustomerOrders(customerId):
 RETURN database.query(
 "SELECT * FROM order_summaries WHERE customer_id = ? ORDER
 \end{lstlisting}
-BY created_at DESC",
+BY created\_at DESC",
 
 customerId
 
@@ -4259,6 +4299,7 @@ Sonuç: Yazma işlemleri transaction güvenliğini koruyor. Arama işlemleri mil
 içinde yanıt veriyor. İki sistem birbirinden bağımsız ölçeklenebiliyor.
 
 
+\end{ornekolay}
 \subsection{6.5.2 Eventual Consistency ile Yaşamak}
 CQRS’in en büyük zorluğu eventual consistencydir. Yazma işlemi gerçekleştikten sonra,
 
@@ -4554,6 +4595,7 @@ arasındadır: bölünme olduğunda tutarlılığı mı, erişilebilirliği mi t
 BÖLÜM 7. MODERN VERİ STRATEJİLERİ: SİSTEMİN HAFIZASI
 
 
+\end{dikkat}
 \subsection{7.3.1 CP Sistemleri: Tutarlılık Öncelikli}
 MongoDB, HBase, etcd gibi sistemler, bölünme durumunda erişilebilirliği feda eder. Veri
 
@@ -4587,6 +4629,7 @@ DynamoDB,“vectorclocks”ileçakışmalarıizlervesonraçözer.Bazenmüşteris
 aynı ürünü iki kez görebilir—ama en azından alışverişe devam edebilir.
 
 
+\end{ornekolay}
 \section{7.4 Polyglot Persistence: Doğru İş İçin Doğru Araç}
 Modern sistemler nadiren tek bir veritabanı türü kullanır. Polyglot Persistence, farklı veri
 
@@ -4661,6 +4704,7 @@ Polyglot persistence güçlüdür ama karmaşıklık ekler. Her yeni veritabanı
 eğrisi, operasyonel yük, monitoring, yedekleme... Sadece açık bir ihtiyaç varsa ekleyin.
 
 
+\end{ipucu}
 \section{7.5 Vector Databases: Yapay Zekânın Hafızası}
 2020’lerin en önemli veritabanı yeniliği, Vector Databases’dir. Büyük dil modelleri (LLM)
 
@@ -5034,7 +5078,7 @@ COPY src/ ./src/
 
 ENV ENVIRONMENT=production
 
-ENV LOG_LEVEL=info
+ENV LOG\_LEVEL=info
 
 # Expose port
 
@@ -5103,6 +5147,7 @@ izolasyon hem de konteyner esnekliği sağlar.
 8.2. KUBERNETES: ORKESTRASYON PLATFORMU
 
 
+\end{ipucu}
 \section{8.2 Kubernetes: Orkestrasyon Platformu}
 Tek bir konteyner çalıştırmak kolaydır. Ama yüzlerce konteyneri, onlarca sunucu üzerinde,
 
@@ -5183,7 +5228,7 @@ periodSeconds: 3
 
 env:
 
-\hfill - name: DATABASE_URL
+\hfill - name: DATABASE\_URL
 
 valueFrom:
 
@@ -5287,15 +5332,15 @@ order = json.loads(event[’body’])
 
 # Get customer email
 
-customer_id = order[’customerId’]
+customer\_id = order[’customerId’]
 
-email = get_customer_email(customer_id)
+email = get\_customer\_email(customer\_id)
 
 # Send email via SES
 
 ses = boto3.client(’ses’)
 
-ses.send_email(
+ses.send\_email(
 
 Source=’orders@mystore.com’,
 
@@ -5305,7 +5350,7 @@ Message={
 
 ’Subject’: {’Data’: f"Order {order[’id’]} Confirmed"},
 
-’Body’: {’Text’: {’Data’: format_order_email(order)}}
+’Body’: {’Text’: {’Data’: format\_order\_email(order)}}
 
 }
 
@@ -5348,6 +5393,7 @@ kapanir. Sonraki cagri, yeni bir instance baslatir—bu milisaniyelerden saniyel
 gecikme ekleyebilir. Kritik latency gereksinimleri olan uygulamalarda dikkatli olun.
 
 
+\end{dikkat}
 \section{8.4 Infrastructure as Code (IaC)}
 Geleneksel yaklasimda, altyapi manuel olarak olusturulur: AWS konsolunda EC2 instance
 
@@ -5379,9 +5425,9 @@ region = "eu-west-1"
 
 # VPC
 
-resource "aws_vpc" "main" {
+resource "aws\_vpc" "main" {
 
-cidr_block = "10.0.0.0/16"
+cidr\_block = "10.0.0.0/16"
 
 tags = {
 
@@ -5398,31 +5444,31 @@ Environment = "production"
 
 # Subnets
 
-resource "aws_subnet" "public" {
+resource "aws\_subnet" "public" {
 
 count = 2
 
-vpc_id = aws_vpc.main.id
+vpc\_id = aws\_vpc.main.id
 
-cidr_block = "10.0.${count.index}.0/24"
+cidr\_block = "10.0.${count.index}.0/24"
 
-availability_zone = data.aws_availability_zones.available.names[
+availability\_zone = data.aws\_availability\_zones.available.names[
 
 count.index]
 
-map_public_ip_on_launch = true
+map\_public\_ip\_on\_launch = true
 
 }
 
 # RDS PostgreSQL
 
-resource "aws_db_instance" "postgres" {
+resource "aws\_db\_instance" "postgres" {
 
 identifier = "orders-db"
 
 engine = "postgres"
 
-engine_version = "15.4"
+engine\_version = "15.4"
 
 \begin{lstlisting}
 instance_class = "db.t3.medium"
@@ -5510,7 +5556,7 @@ push:
 
 branches: [main]
 
-pull_request:
+pull\_request:
 
 branches: [main]
 
@@ -5577,7 +5623,7 @@ kubectl set image deployment/myapp myapp=${{ secrets.REGISTRY
 
 env:
 
-KUBECONFIG: ${{ secrets.STAGING_KUBECONFIG }}
+KUBECONFIG: ${{ secrets.STAGING\_KUBECONFIG }}
 
 \hfill - name: Run integration tests
 
@@ -5603,7 +5649,7 @@ kubectl set image deployment/myapp myapp=${{ secrets.REGISTRY
 
 env:
 
-KUBECONFIG: ${{ secrets.PROD_KUBECONFIG }}
+KUBECONFIG: ${{ secrets.PROD\_KUBECONFIG }}
 
 \textit{Listing 8.9: GitHub Actions CI/CD example}
 
@@ -5687,6 +5733,7 @@ Hata Yönetimi. Chaos Engineering, Zero Trust Security, gözlemlenebilirlik...
 
 
 
+\end{ornekolay}
 \chapter{Bölüm 9}
 Mimari Esneklik ve Hata Yönetimi:
 
@@ -5758,6 +5805,7 @@ tüketimi ve kaskat gecikmeler. P99 latency metriklerinizi ölçün ve bunun 2-3
 timeout olarak belirleyin.
 
 
+\end{ipucu}
 \subsection{9.1.2 Retry: Gecici Hatalari Tolere Etmek}
 Ağ kesintileri, geçici yük artışları, kısa süreli servis yeniden başlatmaları... Bazı hatalar
 
@@ -5802,6 +5850,7 @@ Service Unavailable, connection refused. 400 Bad Request veya 404 Not Found gibi
 kalıcı hataları retry etmek anlamsızdır—sonuç değişmez.
 
 
+\end{dikkat}
 \subsection{9.1.3 Circuit Breaker: Kaskat Arızaları Önlemek}
 Retry, geçici hatalar için iyidir. Ama bağımlı servis tamamen çökmüşse, sürekli retry denemek
 
@@ -6283,6 +6332,7 @@ Süreçleri. Trade-off analizi, ADR’ler (Architecture Decision Records), tekni
 
 
 
+\end{ornekolay}
 \chapter{Bölüm 10}
 Mimari Karar Alma Süreçleri: Belir-
 
@@ -6361,6 +6411,7 @@ dönüşüzorkararlar)geçerkendikkatliolun.Çiftyönlükapılardan(kolaycageria
 kararlar) hızlıca geçin ve deneyimleyerek öğrenin.
 
 
+\end{ipucu}
 \section{10.2 Architecture Decision Records (ADR)}
 Altı ay sonra, “Neden bu teknolojiyi seçtik?” sorusuna yanıt verebilecek misiniz? Çoğu projede,
 
@@ -6658,7 +6709,7 @@ IF task.type == "summarization" AND task.length < 1000:
 
 RETURN MODELS["cheap"]
 
-IF task.type == "code_generation":
+IF task.type == "code\_generation":
 
 IF task.language IN ["python", "javascript"]:
 
@@ -6992,9 +7043,9 @@ parsed = llm.parse(f"""
 \end{lstlisting}
 Extract order details from:
 
-\textit{"{natural_language_request}"}
+\textit{"{natural\_language\_request}"}
 
-Return JSON with: product_id, quantity, shipping_address
+Return JSON with: product\_id, quantity, shipping\_address
 
 \textit{""")}
 
@@ -7183,6 +7234,7 @@ bağlam yönetimi, LLMOps ve legacy modernizasyonu...
 
 
 
+\end{dikkat}
 \chapter{Bölüm 12}
 Agentic IDE’ler ve AI Destekli Ge-
 
@@ -7432,15 +7484,15 @@ response = model.generate(test.input)
 \end{lstlisting}
 IF test.expected:
 
-score = exact_match(response, test.expected)
+score = exact\_match(response, test.expected)
 
-ELSE IF test.expected_contains:
+ELSE IF test.expected\_contains:
 
-score = contains_all(response, test.expected_contains)
+score = contains\_all(response, test.expected\_contains)
 
 ELSE IF test.rubric:
 
-score = llm_judge(response, test.rubric)
+score = llm\_judge(response, test.rubric)
 
 results.append({
 
@@ -7452,7 +7504,7 @@ results.append({
 
 })
 
-RETURN aggregate_scores(results)
+RETURN aggregate\_scores(results)
 
 \begin{lstlisting}
 // METRICS
@@ -7492,7 +7544,7 @@ Original task:
 
 Respond with JSON:
 
-{"correctness": X, "readability": X, "efficiency": X, "best_practices
+{"correctness": X, "readability": X, "efficiency": X, "best\_practices
 
 \textit{": X, "feedback": "..."}}
 
@@ -7508,7 +7560,7 @@ task=task
 \end{lstlisting}
 BÖLÜM 12. AGENTİC IDE’LER VE AI DESTEKLİ GELİSTİRME
 
-judgment = claude_opus.generate(prompt)
+judgment = claude\_opus.generate(prompt)
 
 RETURN json.parse(judgment)
 
@@ -7540,43 +7592,43 @@ old_scores = []
 new_scores = []
 regressions = []
 \end{lstlisting}
-FOR test IN test_cases:
+FOR test IN test\_cases:
 
-old_result = model.generate(old_prompt, test.input)
+old\_result = model.generate(old\_prompt, test.input)
 
-new_result = model.generate(new_prompt, test.input)
+new\_result = model.generate(new\_prompt, test.input)
 
-old_score = evaluate(old_result, test)
+old\_score = evaluate(old\_result, test)
 
-new_score = evaluate(new_result, test)
+new\_score = evaluate(new\_result, test)
 
-old_scores.append(old_score)
+old\_scores.append(old\_score)
 
-new_scores.append(new_score)
+new\_scores.append(new\_score)
 
-IF new_score < old_score - THRESHOLD:
+IF new\_score < old\_score - THRESHOLD:
 
 regressions.append({
 
 \textit{"test": test,}
 
-\textit{"old_score": old_score,}
+\textit{"old\_score": old\_score,}
 
-\textit{"new_score": new_score,}
+\textit{"new\_score": new\_score,}
 
-\textit{"delta": new_score - old_score}
+\textit{"delta": new\_score - old\_score}
 
 })
 
 RETURN {
 
-\textit{"old_avg": mean(old_scores),}
+\textit{"old\_avg": mean(old\_scores),}
 
-\textit{"new_avg": mean(new_scores),}
+\textit{"new\_avg": mean(new\_scores),}
 
 \textit{"regressions": regressions,}
 
-\textit{"can_deploy": len(regressions) == 0}
+\textit{"can\_deploy": len(regressions) == 0}
 
 }
 
@@ -7728,7 +7780,7 @@ uncovered = find_uncovered_lines(source_dir)
 \end{lstlisting}
 FOR file, lines IN uncovered:
 
-generate_tests_for_lines(file, lines)
+generate\_tests\_for\_lines(file, lines)
 
 \textit{Listing 12.8: AI-generated test suite}
 
@@ -7869,11 +7921,11 @@ History: {state.history}
 \end{lstlisting}
 What should I do next?
 
-Available tools: search, calculator, code_executor
+Available tools: search, calculator, code\_executor
 
 Think step by step.
 
-Respond with: THOUGHT, ACTION, or FINAL_ANSWER
+Respond with: THOUGHT, ACTION, or FINAL\_ANSWER
 
 \textit{""")}
 
@@ -7883,11 +7935,11 @@ IF thought.type == "ACTION":
 \end{lstlisting}
 BÖLÜM 13. OTONOM MİMARİNİN MEKANİGİ: AJANLAR VE GRAFLAR
 
-tool_name = thought.tool
+tool\_name = thought.tool
 
-tool_input = thought.input
+tool\_input = thought.input
 
-observation = execute_tool(tool_name, tool_input)
+observation = execute\_tool(tool\_name, tool\_input)
 
 state.history.append({
 
@@ -7929,22 +7981,22 @@ last_message = state.messages[-1]
 tool_calls = last_message.tool_calls
 results = []
 \end{lstlisting}
-FOR call IN tool_calls:
+FOR call IN tool\_calls:
 
-result = execute_tool(call.name, call.args)
+result = execute\_tool(call.name, call.args)
 
 results.append(ToolMessage(content=result))
 
-RETURN {"messages": results, "tools_used": [c.name FOR c IN
+RETURN {"messages": results, "tools\_used": [c.name FOR c IN
 
-tool_calls]}
+tool\_calls]}
 
 \begin{lstlisting}
 FUNCTION should_continue(state):
 last_message = state.messages[-1]
 IF has_tool_calls(last_message):
 \end{lstlisting}
-RETURN "call_tools"
+RETURN "call\_tools"
 
 ELSE:
 
@@ -8023,7 +8075,7 @@ feedback = AGENTS["reviewer"].execute(subtasks["review"], content=
 draft)
 // Writer revises if needed
 \end{lstlisting}
-IF feedback.needs_revision:
+IF feedback.needs\_revision:
 
 final = AGENTS["writer"].revise(draft, feedback)
 
@@ -8075,7 +8127,7 @@ llm.generate_subqueries(query)
 // 3. Hybrid Retrieval
 results = []
 \end{lstlisting}
-FOR q IN expanded_queries:
+FOR q IN expanded\_queries:
 
 \begin{lstlisting}
 // Dense (semantic)
@@ -8114,11 +8166,11 @@ relations = llm.extract_relations(doc)
 \end{lstlisting}
 FOR entity IN entities:
 
-graph.add_node(entity.name, type=entity.type)
+graph.add\_node(entity.name, type=entity.type)
 
 FOR rel IN relations:
 
-graph.add_edge(rel.source, rel.target, type=rel.relation)
+graph.add\_edge(rel.source, rel.target, type=rel.relation)
 
 \begin{lstlisting}
 // Create community summaries (hierarchical)
@@ -8130,7 +8182,7 @@ FOR community IN communities:
 
 summary = llm.summarize(community.nodes)
 
-graph.add_community_summary(community.id, summary)
+graph.add\_community\_summary(community.id, summary)
 
 RETURN graph
 
@@ -8191,7 +8243,7 @@ Is this document relevant to: {query}?
 
 Document: {doc.content[:500]}
 
-Respond: RELEVANT or NOT_RELEVANT
+Respond: RELEVANT or NOT\_RELEVANT
 
 \textit{""")}
 
@@ -8233,7 +8285,7 @@ Respond: GROUNDED or HALLUCINATED
 
 \textit{""")}
 
-IF is_grounded == "HALLUCINATED":
+IF is\_grounded == "HALLUCINATED":
 
 RETURN "I couldn’t find reliable information to answer this
 
@@ -8303,7 +8355,7 @@ IF intent IN ["harmful", "illegal", "adult"]:
 
 RETURN block(f"Blocked due to {intent} content")
 
-RETURN allow(user_input)
+RETURN allow(user\_input)
 
 \begin{lstlisting}
 // LAYER 2: GUARDRAILS (NeMo, LlamaGuard)
@@ -8311,7 +8363,7 @@ FUNCTION apply_guardrails(input, output):
 // Input guardrails
 input_check = llamaguard.check(input)
 \end{lstlisting}
-IF input_check.blocked:
+IF input\_check.blocked:
 
 RETURN refuse("I cannot help with that request")
 
@@ -8319,7 +8371,7 @@ RETURN refuse("I cannot help with that request")
 // Output guardrails
 output_check = llamaguard.check(output)
 \end{lstlisting}
-IF output_check.blocked:
+IF output\_check.blocked:
 
 RETURN refuse("I cannot provide that information")
 
@@ -8355,9 +8407,9 @@ log_entry = {
 }
 audit_log.write(log_entry)
 \end{lstlisting}
-IF log_entry.risk_score > THRESHOLD:
+IF log\_entry.risk\_score > THRESHOLD:
 
-alert_security_team(log_entry)
+alert\_security\_team(log\_entry)
 
 \textit{Listing 13.8: Defense in depth architecture}
 
@@ -8384,17 +8436,17 @@ IF risk_level == "high":
 \end{lstlisting}
 FOR step IN plan.steps:
 
-display_to_human(step)
+display\_to\_human(step)
 
-approval = wait_for_human_approval()
+approval = wait\_for\_human\_approval()
 
 IF approval.rejected:
 
-RETURN handle_rejection(step, approval.reason)
+RETURN handle\_rejection(step, approval.reason)
 
-result = execute_step(step)
+result = execute\_step(step)
 
-ELSE IF risk_level == "medium":
+ELSE IF risk\_level == "medium":
 
 \begin{lstlisting}
 // Approve plan, monitor execution
@@ -8405,7 +8457,7 @@ IF approval.approved:
 
 FOR step IN plan.steps:
 
-result = execute_step(step)
+result = execute\_step(step)
 
 \begin{lstlisting}
 // Human can intervene

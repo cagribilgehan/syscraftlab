@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  # Frontend UI (Next.js)
+  ui:
+    build:
+      context: ./ui
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./ui:/app
+      - /app/node_modules
+      - /app/.next
+    environment:
+      - NODE_ENV=development
+      - WATCHPACK_POLLING=true
+    restart: unless-stopped
+  # Python Code Execution Sandbox (for later)
+  # sandbox:
+  #   build:
+  #     context: ./sandbox
+  #   security_opt:
+  #     - no-new-privileges:true
+  #   cap_drop:
+  #     - ALL
+  #   read_only: true
+  #   mem_limit: 256m
+  #   cpus: 0.5
+  #   network_mode: none
