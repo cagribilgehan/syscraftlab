@@ -3,28 +3,23 @@
 
 FROM node:20-alpine AS base
 
-# Dependencies stage
-FROM base AS deps
+# Builder stage - single stage for simplicity
+FROM base AS builder
 RUN apk add --no-cache libc6-compat
 WORKDIR /app
 
 # Copy package files from ui/
 COPY ui/package.json ui/package-lock.json* ./
-RUN npm ci
 
-# Builder stage
-FROM base AS builder
-WORKDIR /app
-
-# Copy package files and install directly (avoids symlink issues)
-COPY ui/package.json ui/package-lock.json* ./
+# Install dependencies
 RUN npm ci
 
 # Copy source code
 COPY ui/ .
 
+# Build the application using npx to avoid symlink issues
 ENV NEXT_TELEMETRY_DISABLED 1
-RUN npm run build
+RUN npx next build
 
 # Runner stage
 FROM base AS runner

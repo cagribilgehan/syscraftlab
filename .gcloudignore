@@ -1,0 +1,10 @@
+.git
+.gitignore
+node_modules/
+ui/node_modules/
+.next/
+ui/.next/
+README.md
+*.md
+.DS_Store
+*.log
