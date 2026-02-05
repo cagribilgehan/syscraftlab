@@ -1,7 +1,7 @@
 # Root Dockerfile that builds the UI from ui/ subdirectory
 # This is a wrapper for Cloud Run's automatic deployment
 
-FROM node:18-alpine AS base
+FROM node:20-alpine AS base
 
 # Dependencies stage
 FROM base AS deps
