@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Code, Zap, Trophy, Lock, ChevronRight, Terminal, Brain, Database, Map, Rocket, Menu, X, FileText } from 'lucide-react';
 import Link from 'next/link';
+import { AuthHeader } from '@/components/auth';
 
 // Book Card Component
 function BookCard({
@@ -196,9 +197,7 @@ export default function Home() {
                             <span className="hidden lg:inline">Start Coding</span>
                             <span className="lg:hidden">Start</span>
                         </Link>
-                        <Link href="/login" className="px-3 lg:px-4 py-2 rounded-lg bg-dark-panel border border-neon-cyan/30 text-neon-cyan font-medium hover:bg-neon-cyan/10 transition-all">
-                            Sign In
-                        </Link>
+                        <AuthHeader />
                     </nav>
 
                     {/* Mobile Menu Button */}
@@ -265,13 +264,9 @@ export default function Home() {
                                     <Rocket className="w-5 h-5" />
                                     Start Coding
                                 </Link>
-                                <Link
-                                    href="/login"
-                                    className="flex items-center justify-center gap-2 p-3 rounded-lg border border-neon-cyan/30 text-neon-cyan font-medium"
-                                    onClick={() => setMobileMenuOpen(false)}
-                                >
-                                    Sign In
-                                </Link>
+                                <div onClick={() => setMobileMenuOpen(false)}>
+                                    <AuthHeader />
+                                </div>
                             </nav>
                         </motion.div>
                     )}
