@@ -15,7 +15,12 @@ RUN npm ci
 # Builder stage
 FROM base AS builder
 WORKDIR /app
-COPY --from=deps /app/node_modules ./node_modules
+
+# Copy package files and install directly (avoids symlink issues)
+COPY ui/package.json ui/package-lock.json* ./
+RUN npm ci
+
+# Copy source code
 COPY ui/ .
 
 ENV NEXT_TELEMETRY_DISABLED 1
