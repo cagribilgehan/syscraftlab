@@ -171,7 +171,7 @@ export default function LoginPage() {
                                 <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500 group-focus-within:text-neon-cyan transition-colors" />
                                 <input
                                     type="email"
-                                    placeholder="user@syscraftlab.io"
+                                    placeholder="user@labludus.io"
                                     value={formData.email}
                                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                                     className="w-full pl-12 pr-4 py-4 rounded-xl bg-dark-bg border-2 border-gray-700 focus:border-neon-cyan focus:shadow-[0_0_20px_rgba(0,212,255,0.15)] focus:outline-none transition-all"
@@ -195,8 +195,8 @@ export default function LoginPage() {
                                         setError(null);
                                     }}
                                     className={`w-full pl-12 pr-12 py-4 rounded-xl bg-dark-bg border-2 focus:outline-none transition-all ${error
-                                            ? 'border-red-500 focus:border-red-500'
-                                            : 'border-gray-700 focus:border-neon-cyan focus:shadow-[0_0_20px_rgba(0,212,255,0.15)]'
+                                        ? 'border-red-500 focus:border-red-500'
+                                        : 'border-gray-700 focus:border-neon-cyan focus:shadow-[0_0_20px_rgba(0,212,255,0.15)]'
                                         }`}
                                 />
                                 <button

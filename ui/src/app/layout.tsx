@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import './globals.css';
 
 export const metadata: Metadata = {
-    title: 'CodexLudus | The Grand Library',
+    title: 'LabLudus | The Grand Library',
     description: 'Teknik kitapları interaktif maceralara dönüştüren platform. Kod yazarak öğren, hata yaparak ustalaş.',
     keywords: ['yazılım mimarisi', 'coding challenge', 'gamification', 'learn to code'],
 };

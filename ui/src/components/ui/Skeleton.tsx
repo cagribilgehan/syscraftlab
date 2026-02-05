@@ -5,16 +5,19 @@ import { motion } from 'framer-motion';
 // Base Skeleton Component
 export function Skeleton({
     className = '',
-    animate = true
+    animate = true,
+    style
 }: {
     className?: string;
     animate?: boolean;
+    style?: React.CSSProperties;
 }) {
     return (
         <motion.div
             animate={animate ? { opacity: [0.5, 1, 0.5] } : {}}
             transition={{ repeat: Infinity, duration: 1.5 }}
             className={`bg-gray-800 rounded ${className}`}
+            style={style}
         />
     );
 }

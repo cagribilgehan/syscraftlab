@@ -46,7 +46,7 @@ function WelcomeStep({ onNext }: { onNext: () => void }) {
 
             <h1 className="text-4xl font-display font-bold mb-4">
                 Welcome to<br />
-                <span className="neon-text">SysCraftLab</span>
+                <span className="neon-text">LabLudus</span>
             </h1>
 
             <p className="text-gray-400 mb-8 max-w-md mx-auto">

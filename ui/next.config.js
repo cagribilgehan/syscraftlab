@@ -1,6 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     reactStrictMode: true,
+    output: 'standalone', // For Google Cloud Run deployment
     // Enable hot reload in Docker
     webpack: (config) => {
         config.watchOptions = {

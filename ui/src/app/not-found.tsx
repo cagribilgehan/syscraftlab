@@ -143,7 +143,7 @@ export default function NotFound() {
                     transition={{ delay: 1 }}
                     className="mt-8 text-sm text-gray-500 font-mono"
                 >
-                    Error logged at {new Date().toISOString().split('T')[0]} | SysCraftLab v3.0
+                    Error logged at {new Date().toISOString().split('T')[0]} | LabLudus v3.0
                 </motion.p>
             </motion.div>
         </div>

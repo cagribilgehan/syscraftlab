@@ -105,14 +105,49 @@ body {
 
 /* Button Styles */
 .btn-primary {
-  @apply px-6 py-3 rounded-lg font-semibold transition-all duration-300;
+  @apply rounded-lg font-semibold transition-all duration-300;
   background: linear-gradient(135deg, #00d4ff 0%, #7c3aed 100%);
   box-shadow: 0 4px 15px rgba(0, 212, 255, 0.3);
+  border: none;
 }
 
 .btn-primary:hover {
   transform: translateY(-2px);
   box-shadow: 0 6px 20px rgba(0, 212, 255, 0.4);
+}
+
+/* Hero Button Alignment Fix */
+.hero-buttons-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+}
+
+.hero-btn {
+  height: 52px;
+  padding: 0 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  font-size: 16px;
+  line-height: 1;
+  border-radius: 12px;
+  font-weight: 700;
+  transition: all 0.3s ease;
+}
+
+/* Secondary Button (Outline) */
+.btn-secondary {
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  background: transparent;
+  color: #9ca3af;
+}
+
+.btn-secondary:hover {
+  border-color: #00d4ff;
+  color: #00d4ff;
 }
 
 /* Zone Card Locked State */

@@ -11,14 +11,14 @@ import {
     Skull,
     ChevronRight,
     Trophy,
-    BookOpen,
     AlertTriangle,
     Database,
     Cloud,
     Server,
     Cpu,
     MessageSquare,
-    Shield
+    Shield,
+    ShoppingBag
 } from 'lucide-react';
 import Link from 'next/link';
 
@@ -27,139 +27,139 @@ const zones = [
     {
         id: 1,
         name: 'Zone 1: Quality Attributes',
-        description: 'Bölüm 2 - Kalite Nitelikleri',
+        description: 'Bölüm 1 - Kalite Nitelikleri',
         icon: 'shield',
         unlocked: true,
         completed: false,
         missions: [
-            { id: '2.1', title: 'Latency Budget', desc: 'User journey latency budget', type: 'code', status: 'available', xp: 100 },
-            { id: '2.2', title: 'Stateless Design', desc: 'Stateful vs Stateless comparison', type: 'code', status: 'locked', xp: 100 },
-            { id: '2.3', title: 'Redundancy Strategy', desc: 'Active-Active redundancy', type: 'code', status: 'locked', xp: 120 },
-            { id: '2.4', title: 'Loose Coupling', desc: 'Coupling example', type: 'code', status: 'locked', xp: 120 },
-            { id: '2.B', title: 'The Bottleneck', type: 'boss', status: 'locked', xp: 400 },
+            { id: '1.1', title: 'Latency Budget', desc: 'User journey latency budget', type: 'code', status: 'available', xp: 100 },
+            { id: '1.2', title: 'Stateless Design', desc: 'Stateful vs Stateless comparison', type: 'code', status: 'available', xp: 100 },
+            { id: '1.3', title: 'Redundancy Strategy', desc: 'Active-Active redundancy', type: 'code', status: 'available', xp: 120 },
+            { id: '1.4', title: 'Loose Coupling', desc: 'Coupling example', type: 'code', status: 'available', xp: 120 },
+            { id: '1.B', title: 'The Bottleneck', type: 'boss', status: 'available', xp: 400 },
         ]
     },
     {
         id: 2,
         name: 'Zone 2: SOLID & Patterns',
-        description: 'Bölüm 3 - Temel Yazılım Prensipleri',
+        description: 'Bölüm 2 - Temel Yazılım Prensipleri',
         icon: 'cpu',
-        unlocked: false,
+        unlocked: true,
         completed: false,
         missions: [
-            { id: '3.1', title: 'SRP Violation', desc: 'Single Responsibility fix', type: 'code', status: 'locked', xp: 150 },
-            { id: '3.2', title: 'Open/Closed', desc: 'OCP Before and After', type: 'code', status: 'locked', xp: 150 },
-            { id: '3.3', title: 'Liskov Substitution', desc: 'Rectangle/Square problem', type: 'code', status: 'locked', xp: 150 },
-            { id: '3.4', title: 'Interface Segregation', desc: 'Fat vs segregated interfaces', type: 'code', status: 'locked', xp: 150 },
-            { id: '3.5', title: 'Dependency Inversion', desc: 'Inverting dependencies', type: 'code', status: 'locked', xp: 150 },
-            { id: '3.6', title: 'KISS Principle', desc: 'Clever vs Clear code', type: 'code', status: 'locked', xp: 100 },
-            { id: '3.7', title: 'Encapsulation', desc: 'Encapsulation example', type: 'code', status: 'locked', xp: 100 },
-            { id: '3.8', title: 'Factory Pattern', desc: 'Factory design pattern', type: 'code', status: 'locked', xp: 120 },
-            { id: '3.9', title: 'Singleton Pattern', desc: 'Single instance pattern', type: 'code', status: 'locked', xp: 120 },
-            { id: '3.10', title: 'Builder Pattern', desc: 'Builder design pattern', type: 'code', status: 'locked', xp: 120 },
-            { id: '3.11', title: 'Adapter Pattern', desc: 'Adapter design pattern', type: 'code', status: 'locked', xp: 120 },
-            { id: '3.12', title: 'Facade Pattern', desc: 'Facade design pattern', type: 'code', status: 'locked', xp: 120 },
-            { id: '3.13', title: 'Decorator Pattern', desc: 'Decorator design pattern', type: 'code', status: 'locked', xp: 120 },
-            { id: '3.14', title: 'Observer Pattern', desc: 'Observer design pattern', type: 'code', status: 'locked', xp: 120 },
-            { id: '3.15', title: 'Strategy Pattern', desc: 'Strategy design pattern', type: 'code', status: 'locked', xp: 120 },
-            { id: '3.16', title: 'Command Pattern', desc: 'Command design pattern', type: 'code', status: 'locked', xp: 120 },
-            { id: '3.B', title: 'Legacy Monster', type: 'boss', status: 'locked', xp: 800 },
+            { id: '2.1', title: 'SRP Violation', desc: 'Single Responsibility fix', type: 'code', status: 'available', xp: 150 },
+            { id: '2.2', title: 'Open/Closed', desc: 'OCP Before and After', type: 'code', status: 'available', xp: 150 },
+            { id: '2.3', title: 'Liskov Substitution', desc: 'Rectangle/Square problem', type: 'code', status: 'available', xp: 150 },
+            { id: '2.4', title: 'Interface Segregation', desc: 'Fat vs segregated interfaces', type: 'code', status: 'available', xp: 150 },
+            { id: '2.5', title: 'Dependency Inversion', desc: 'Inverting dependencies', type: 'code', status: 'available', xp: 150 },
+            { id: '2.6', title: 'KISS Principle', desc: 'Clever vs Clear code', type: 'code', status: 'available', xp: 100 },
+            { id: '2.7', title: 'Encapsulation', desc: 'Encapsulation example', type: 'code', status: 'available', xp: 100 },
+            { id: '2.8', title: 'Factory Pattern', desc: 'Factory design pattern', type: 'code', status: 'available', xp: 120 },
+            { id: '2.9', title: 'Singleton Pattern', desc: 'Single instance pattern', type: 'code', status: 'available', xp: 120 },
+            { id: '2.10', title: 'Builder Pattern', desc: 'Builder design pattern', type: 'code', status: 'available', xp: 120 },
+            { id: '2.11', title: 'Adapter Pattern', desc: 'Adapter design pattern', type: 'code', status: 'available', xp: 120 },
+            { id: '2.12', title: 'Facade Pattern', desc: 'Facade design pattern', type: 'code', status: 'available', xp: 120 },
+            { id: '2.13', title: 'Decorator Pattern', desc: 'Decorator design pattern', type: 'code', status: 'available', xp: 120 },
+            { id: '2.14', title: 'Observer Pattern', desc: 'Observer design pattern', type: 'code', status: 'available', xp: 120 },
+            { id: '2.15', title: 'Strategy Pattern', desc: 'Strategy design pattern', type: 'code', status: 'available', xp: 120 },
+            { id: '2.16', title: 'Command Pattern', desc: 'Command design pattern', type: 'code', status: 'available', xp: 120 },
+            { id: '2.B', title: 'Legacy Monster', type: 'boss', status: 'available', xp: 800 },
         ]
     },
     {
         id: 3,
         name: 'Zone 3: Application Architecture',
-        description: 'Bölüm 4 - Uygulama Mimarileri',
+        description: 'Bölüm 3 - Uygulama Mimarileri',
         icon: 'server',
-        unlocked: false,
+        unlocked: true,
         completed: false,
         missions: [
-            { id: '4.1', title: 'Monolith Structure', desc: 'Typical monolith', type: 'code', status: 'locked', xp: 180 },
-            { id: '4.2', title: 'Modular Monolith', desc: 'Modular monolith structure', type: 'code', status: 'locked', xp: 200 },
-            { id: '4.3', title: 'Three-Tier', desc: 'Three-tier architecture', type: 'code', status: 'locked', xp: 200 },
-            { id: '4.4', title: 'Hexagonal', desc: 'Ports & Adapters', type: 'code', status: 'locked', xp: 250 },
-            { id: '4.5', title: 'Bounded Contexts', desc: 'DDD bounded contexts', type: 'code', status: 'locked', xp: 250 },
-            { id: '4.6', title: 'Aggregate Root', desc: 'Aggregate example', type: 'code', status: 'locked', xp: 250 },
-            { id: '4.7', title: 'Entity vs Value', desc: 'Entity vs Value Object', type: 'code', status: 'locked', xp: 200 },
-            { id: '4.8', title: 'Domain Events', desc: 'Domain events example', type: 'code', status: 'locked', xp: 250 },
-            { id: '4.B', title: 'The Monolith Giant', type: 'boss', status: 'locked', xp: 900 },
+            { id: '3.1', title: 'Monolith Structure', desc: 'Typical monolith', type: 'code', status: 'available', xp: 180 },
+            { id: '3.2', title: 'Modular Monolith', desc: 'Modular monolith structure', type: 'code', status: 'available', xp: 200 },
+            { id: '3.3', title: 'Three-Tier', desc: 'Three-tier architecture', type: 'code', status: 'available', xp: 200 },
+            { id: '3.4', title: 'Hexagonal', desc: 'Ports & Adapters', type: 'code', status: 'available', xp: 250 },
+            { id: '3.5', title: 'Bounded Contexts', desc: 'DDD bounded contexts', type: 'code', status: 'available', xp: 250 },
+            { id: '3.6', title: 'Aggregate Root', desc: 'Aggregate example', type: 'code', status: 'available', xp: 250 },
+            { id: '3.7', title: 'Entity vs Value', desc: 'Entity vs Value Object', type: 'code', status: 'available', xp: 200 },
+            { id: '3.8', title: 'Domain Events', desc: 'Domain events example', type: 'code', status: 'available', xp: 250 },
+            { id: '3.B', title: 'The Monolith Giant', type: 'boss', status: 'available', xp: 900 },
         ]
     },
     {
         id: 4,
         name: 'Zone 4: Microservices',
-        description: 'Bölüm 5 - Mikroservisler',
+        description: 'Bölüm 4 - Mikroservisler',
         icon: 'zap',
-        unlocked: false,
+        unlocked: true,
         completed: false,
         missions: [
-            { id: '5.1', title: 'Strangler Fig', desc: 'Strangler Fig Pattern', type: 'code', status: 'locked', xp: 250 },
-            { id: '5.2', title: 'REST vs gRPC', desc: 'Protocol comparison', type: 'code', status: 'locked', xp: 200 },
-            { id: '5.3', title: 'Circuit Breaker', desc: 'Circuit Breaker implementation', type: 'code', status: 'locked', xp: 300 },
-            { id: '5.4', title: 'Async Messaging', desc: 'Async messaging example', type: 'code', status: 'locked', xp: 250 },
-            { id: '5.5', title: 'API Gateway', desc: 'Gateway configuration', type: 'code', status: 'locked', xp: 250 },
-            { id: '5.6', title: 'Service Mesh', desc: 'Sidecar pattern', type: 'code', status: 'locked', xp: 300 },
-            { id: '5.7', title: 'Saga Orchestration', desc: 'Saga orchestration approach', type: 'code', status: 'locked', xp: 350 },
-            { id: '5.8', title: 'Outbox Pattern', desc: 'Outbox pattern', type: 'code', status: 'locked', xp: 300 },
-            { id: '5.9', title: 'Service Discovery', desc: 'Discovery patterns', type: 'code', status: 'locked', xp: 250 },
-            { id: '5.10', title: 'Health Checks', desc: 'Health check endpoints', type: 'code', status: 'locked', xp: 200 },
-            { id: '5.B', title: 'The Fail Whale', type: 'boss', status: 'locked', xp: 1200 },
+            { id: '4.1', title: 'Strangler Fig', desc: 'Strangler Fig Pattern', type: 'code', status: 'available', xp: 250 },
+            { id: '4.2', title: 'REST vs gRPC', desc: 'Protocol comparison', type: 'code', status: 'available', xp: 200 },
+            { id: '4.3', title: 'Circuit Breaker', desc: 'Circuit Breaker implementation', type: 'code', status: 'available', xp: 300 },
+            { id: '4.4', title: 'Async Messaging', desc: 'Async messaging example', type: 'code', status: 'available', xp: 250 },
+            { id: '4.5', title: 'API Gateway', desc: 'Gateway configuration', type: 'code', status: 'available', xp: 250 },
+            { id: '4.6', title: 'Service Mesh', desc: 'Sidecar pattern', type: 'code', status: 'available', xp: 300 },
+            { id: '4.7', title: 'Saga Orchestration', desc: 'Saga orchestration approach', type: 'code', status: 'available', xp: 350 },
+            { id: '4.8', title: 'Outbox Pattern', desc: 'Outbox pattern', type: 'code', status: 'available', xp: 300 },
+            { id: '4.9', title: 'Service Discovery', desc: 'Discovery patterns', type: 'code', status: 'available', xp: 250 },
+            { id: '4.10', title: 'Health Checks', desc: 'Health check endpoints', type: 'code', status: 'available', xp: 200 },
+            { id: '4.B', title: 'The Fail Whale', type: 'boss', status: 'available', xp: 1200 },
         ]
     },
     {
         id: 5,
         name: 'Zone 5: Event-Driven',
-        description: 'Bölüm 6 - Event-Driven Mimari',
+        description: 'Bölüm 5 - Event-Driven Mimari',
         icon: 'message',
-        unlocked: false,
+        unlocked: true,
         completed: false,
         missions: [
-            { id: '6.1', title: 'Command vs Event', desc: 'Command and event difference', type: 'code', status: 'locked', xp: 200 },
-            { id: '6.2', title: 'Pub/Sub Pattern', desc: 'Publish/Subscribe pattern', type: 'code', status: 'locked', xp: 250 },
-            { id: '6.3', title: 'Kafka Concepts', desc: 'Kafka fundamentals', type: 'code', status: 'locked', xp: 300 },
-            { id: '6.4', title: 'RabbitMQ Exchanges', desc: 'Exchange types', type: 'code', status: 'locked', xp: 280 },
-            { id: '6.5', title: 'Event Sourcing', desc: 'Event sourcing example', type: 'code', status: 'locked', xp: 350 },
-            { id: '6.6', title: 'Snapshots', desc: 'Snapshot optimization', type: 'code', status: 'locked', xp: 300 },
-            { id: '6.7', title: 'CQRS', desc: 'CQRS architecture', type: 'code', status: 'locked', xp: 400 },
-            { id: '6.B', title: 'Event Storm', type: 'boss', status: 'locked', xp: 1000 },
+            { id: '5.1', title: 'Command vs Event', desc: 'Command and event difference', type: 'code', status: 'available', xp: 200 },
+            { id: '5.2', title: 'Pub/Sub Pattern', desc: 'Publish/Subscribe pattern', type: 'code', status: 'available', xp: 250 },
+            { id: '5.3', title: 'Kafka Concepts', desc: 'Kafka fundamentals', type: 'code', status: 'available', xp: 300 },
+            { id: '5.4', title: 'RabbitMQ Exchanges', desc: 'Exchange types', type: 'code', status: 'available', xp: 280 },
+            { id: '5.5', title: 'Event Sourcing', desc: 'Event sourcing example', type: 'code', status: 'available', xp: 350 },
+            { id: '5.6', title: 'Snapshots', desc: 'Snapshot optimization', type: 'code', status: 'available', xp: 300 },
+            { id: '5.7', title: 'CQRS', desc: 'CQRS architecture', type: 'code', status: 'available', xp: 400 },
+            { id: '5.B', title: 'Event Storm', type: 'boss', status: 'available', xp: 1000 },
         ]
     },
     {
         id: 6,
         name: 'Zone 6: Data Strategies',
-        description: 'Bölüm 7 - Modern Veri Stratejileri',
+        description: 'Bölüm 6 - Modern Veri Stratejileri',
         icon: 'database',
-        unlocked: false,
+        unlocked: true,
         completed: false,
         missions: [
-            { id: '7.1', title: 'ACID Transactions', desc: 'ACID transaction example', type: 'code', status: 'locked', xp: 200 },
-            { id: '7.2', title: 'Document DB', desc: 'MongoDB example', type: 'code', status: 'locked', xp: 250 },
-            { id: '7.3', title: 'Key-Value Store', desc: 'Redis example', type: 'code', status: 'locked', xp: 250 },
-            { id: '7.4', title: 'Column-Family', desc: 'Cassandra example', type: 'code', status: 'locked', xp: 280 },
-            { id: '7.5', title: 'Graph Database', desc: 'Neo4j example', type: 'code', status: 'locked', xp: 300 },
-            { id: '7.6', title: 'Polyglot Persistence', desc: 'Multi-DB usage', type: 'code', status: 'locked', xp: 350 },
-            { id: '7.7', title: 'Vector Embeddings', desc: 'Embedding concept', type: 'code', status: 'locked', xp: 350 },
-            { id: '7.8', title: 'Vector Database', desc: 'Pinecone operations', type: 'code', status: 'locked', xp: 350 },
-            { id: '7.9', title: 'RAG Architecture', desc: 'RAG pipeline', type: 'code', status: 'locked', xp: 400 },
-            { id: '7.10', title: 'Chunking', desc: 'Chunking strategies', type: 'code', status: 'locked', xp: 300 },
-            { id: '7.11', title: 'Hybrid Search', desc: 'Vector + keyword search', type: 'code', status: 'locked', xp: 350 },
-            { id: '7.B', title: 'Data Kraken', type: 'boss', status: 'locked', xp: 1200 },
+            { id: '6.1', title: 'ACID Transactions', desc: 'ACID transaction example', type: 'code', status: 'available', xp: 200 },
+            { id: '6.2', title: 'Document DB', desc: 'MongoDB example', type: 'code', status: 'available', xp: 250 },
+            { id: '6.3', title: 'Key-Value Store', desc: 'Redis example', type: 'code', status: 'available', xp: 250 },
+            { id: '6.4', title: 'Column-Family', desc: 'Cassandra example', type: 'code', status: 'available', xp: 280 },
+            { id: '6.5', title: 'Graph Database', desc: 'Neo4j example', type: 'code', status: 'available', xp: 300 },
+            { id: '6.6', title: 'Polyglot Persistence', desc: 'Multi-DB usage', type: 'code', status: 'available', xp: 350 },
+            { id: '6.7', title: 'Vector Embeddings', desc: 'Embedding concept', type: 'code', status: 'available', xp: 350 },
+            { id: '6.8', title: 'Vector Database', desc: 'Pinecone operations', type: 'code', status: 'available', xp: 350 },
+            { id: '6.9', title: 'RAG Architecture', desc: 'RAG pipeline', type: 'code', status: 'available', xp: 400 },
+            { id: '6.10', title: 'Chunking', desc: 'Chunking strategies', type: 'code', status: 'available', xp: 300 },
+            { id: '6.11', title: 'Hybrid Search', desc: 'Vector + keyword search', type: 'code', status: 'available', xp: 350 },
+            { id: '6.B', title: 'Data Kraken', type: 'boss', status: 'available', xp: 1200 },
         ]
     },
     {
         id: 7,
         name: 'Zone 7: Cloud Native',
-        description: 'Bölüm 8 - Bulut Yerli Mimari',
+        description: 'Bölüm 7 - Bulut Yerli Mimari',
         icon: 'cloud',
-        unlocked: false,
+        unlocked: true,
         completed: false,
         missions: [
-            { id: '8.1', title: 'Dockerfile', desc: 'Dockerfile example', type: 'code', status: 'locked', xp: 200 },
-            { id: '8.2', title: 'Docker CLI', desc: 'Docker commands', type: 'code', status: 'locked', xp: 200 },
-            { id: '8.3', title: 'K8s Deployment', desc: 'Deployment manifest', type: 'code', status: 'locked', xp: 300 },
-            { id: '8.4', title: 'K8s Service', desc: 'Service manifest', type: 'code', status: 'locked', xp: 280 },
-            { id: '8.5', title: 'HPA Autoscaling', desc: 'Horizontal Pod Autoscaler', type: 'code', status: 'locked', xp: 350 },
-            { id: '8.B', title: 'Cloud Titan', type: 'boss', status: 'locked', xp: 1500 },
+            { id: '7.1', title: 'Dockerfile', desc: 'Dockerfile example', type: 'code', status: 'available', xp: 200 },
+            { id: '7.2', title: 'Docker CLI', desc: 'Docker commands', type: 'code', status: 'available', xp: 200 },
+            { id: '7.3', title: 'K8s Deployment', desc: 'Deployment manifest', type: 'code', status: 'available', xp: 300 },
+            { id: '7.4', title: 'K8s Service', desc: 'Service manifest', type: 'code', status: 'available', xp: 280 },
+            { id: '7.5', title: 'HPA Autoscaling', desc: 'Horizontal Pod Autoscaler', type: 'code', status: 'available', xp: 350 },
+            { id: '7.B', title: 'Cloud Titan', type: 'boss', status: 'available', xp: 1500 },
         ]
     }
 ];
@@ -203,18 +203,21 @@ function UnlockModal({ isOpen, onClose }: { isOpen: boolean; onClose: () => void
                 <Lock className="w-16 h-16 mx-auto mb-4 text-neon-purple" />
                 <h3 className="text-2xl font-display font-bold mb-4">Zone Locked</h3>
                 <p className="text-gray-400 mb-6">
-                    To face <span className="text-red-500 font-bold">The Fail Whale</span> and unlock all <span className="text-neon-cyan font-bold">{totalMissions} missions</span>, you need the Codex.
+                    To face <span className="text-red-500 font-bold">The Fail Whale</span> and unlock all <span className="text-neon-cyan font-bold">{totalMissions} missions</span>, get PRO membership.
                 </p>
                 <div className="space-y-3">
                     <Link href="/get-book">
                         <button className="w-full py-3 rounded-xl btn-primary font-bold flex items-center justify-center gap-2">
-                            <BookOpen className="w-5 h-5" />
-                            Get the Book - $29.99
+                            <Zap className="w-5 h-5" />
+                            Get PRO - $9.99/mo
                         </button>
                     </Link>
-                    <button className="w-full py-3 rounded-xl border border-gray-600 text-gray-400 hover:border-neon-cyan hover:text-neon-cyan transition-all">
-                        I have a code → Redeem
-                    </button>
+                    <Link href="/store">
+                        <button className="w-full py-3 rounded-xl border border-gray-600 text-gray-400 hover:border-neon-purple hover:text-neon-purple transition-all flex items-center justify-center gap-2">
+                            <ShoppingBag className="w-4 h-4" />
+                            Visit The Armory
+                        </button>
+                    </Link>
                 </div>
             </motion.div>
         </motion.div>
@@ -429,11 +432,11 @@ export default function MapPage() {
                             <span className="font-mono font-bold">Lvl {currentLevel}</span>
                         </div>
 
-                        {/* Get the Book */}
-                        <Link href="/get-book">
-                            <button className="px-3 py-1.5 rounded-lg bg-gradient-to-r from-yellow-500 to-orange-500 font-bold text-dark-bg text-sm hover:from-yellow-400 hover:to-orange-400 transition-all flex items-center gap-1.5">
-                                <BookOpen className="w-4 h-4" />
-                                Get Book
+                        {/* The Armory */}
+                        <Link href="/store">
+                            <button className="px-3 py-1.5 rounded-lg border border-neon-purple/50 text-neon-purple font-medium text-sm hover:bg-neon-purple/10 transition-all flex items-center gap-1.5">
+                                <ShoppingBag className="w-4 h-4" />
+                                <span className="hidden sm:inline">Armory</span>
                             </button>
                         </Link>
                     </div>

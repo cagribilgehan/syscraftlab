@@ -1,7 +1,8 @@
 'use client';
 
-import { motion } from 'framer-motion';
-import { BookOpen, Code, Zap, Trophy, Lock, ChevronRight, Terminal, Brain, Database } from 'lucide-react';
+import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Code, Zap, Trophy, Lock, ChevronRight, Terminal, Brain, Database, Map, Rocket, Menu, X, FileText } from 'lucide-react';
 import Link from 'next/link';
 
 // Book Card Component
@@ -13,7 +14,8 @@ function BookCard({
     maxLevel,
     isLocked,
     accentColor,
-    icon: Icon
+    icon: Icon,
+    status
 }: {
     title: string;
     subtitle: string;
@@ -23,6 +25,7 @@ function BookCard({
     isLocked: boolean;
     accentColor: string;
     icon: React.ElementType;
+    status?: string;
 }) {
     return (
         <motion.div
@@ -38,15 +41,22 @@ function BookCard({
                     <div className="text-center">
                         <Lock className="w-10 h-10 mx-auto mb-3 text-gray-400" />
                         <p className="text-gray-300 font-semibold text-lg">Coming Soon</p>
-                        <p className="text-gray-500 text-sm mt-1">Stay tuned for updates</p>
+                        <p className="text-gray-500 text-sm mt-1">Season 2 & Beyond</p>
                     </div>
                 </div>
             )}
 
-            {/* Theme Badge */}
-            <span className="text-xs font-mono uppercase tracking-wider text-gray-500">
-                {theme}
-            </span>
+            {/* Status Badge + Theme */}
+            <div className="flex items-center justify-between">
+                <span className="text-xs font-mono uppercase tracking-wider text-gray-500">
+                    {theme}
+                </span>
+                {status && (
+                    <span className="text-xs font-bold px-2 py-0.5 rounded-full bg-green-500/20 text-green-400 border border-green-500/30">
+                        {status}
+                    </span>
+                )}
+            </div>
 
             {/* Icon */}
             <div
@@ -140,37 +150,132 @@ function StatCard({ icon: Icon, value, label, color }: {
 
 // Main Landing Page
 export default function Home() {
+    const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
     return (
         <div className="min-h-screen">
             {/* Header */}
             <header className="fixed top-0 left-0 right-0 z-50 bg-dark-bg/80 backdrop-blur-lg border-b border-gray-800">
-                <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+                <div className="max-w-7xl mx-auto px-4 md:px-6 py-4 flex items-center justify-between">
                     <div className="flex items-center gap-3">
                         <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-neon-cyan to-neon-purple flex items-center justify-center">
                             <Terminal className="w-5 h-5 text-white" />
                         </div>
                         <div>
-                            <h1 className="text-xl font-display font-bold neon-text">SysCraftLab</h1>
-                            <p className="text-xs text-gray-500">Engineering Craftsmanship</p>
+                            <h1 className="text-xl font-display font-bold neon-text">LabLudus</h1>
+                            <p className="text-xs text-gray-500 hidden sm:block">Engineering Craftsmanship</p>
                         </div>
                     </div>
 
-                    <nav className="flex items-center gap-6">
-                        <Link href="/blog" className="text-gray-400 hover:text-neon-cyan transition-colors">DevLogs</Link>
-                        <a href="#" className="text-gray-400 hover:text-neon-cyan transition-colors">Leaderboard</a>
-                        <Link href="/profile" className="text-gray-400 hover:text-neon-cyan transition-colors">Profile</Link>
-                        <Link
-                            href="/get-book"
-                            className="px-4 py-2 rounded-lg bg-gradient-to-r from-yellow-500 to-orange-500 text-dark-bg font-bold hover:from-yellow-400 hover:to-orange-400 transition-all flex items-center gap-2"
-                        >
-                            <BookOpen className="w-4 h-4" />
-                            Get the Book
+                    {/* Desktop Navigation */}
+                    <nav className="hidden md:flex items-center gap-4 lg:gap-6">
+                        <Link href="/map" className="text-gray-400 hover:text-neon-cyan transition-colors flex items-center gap-1">
+                            <Map className="w-4 h-4" />
+                            <span className="hidden xl:inline">Mission Map</span>
+                            <span className="xl:hidden">Map</span>
                         </Link>
-                        <Link href="/login" className="px-4 py-2 rounded-lg bg-dark-panel border border-neon-cyan/30 text-neon-cyan font-medium hover:bg-neon-cyan/10 transition-all">
+                        <Link href="/leaderboard" className="text-gray-400 hover:text-neon-cyan transition-colors flex items-center gap-1">
+                            <Trophy className="w-4 h-4" />
+                            <span className="hidden xl:inline">Leaderboard</span>
+                            <span className="xl:hidden">Ranks</span>
+                        </Link>
+                        <Link href="/blog" className="text-gray-400 hover:text-neon-cyan transition-colors flex items-center gap-1">
+                            <FileText className="w-4 h-4" />
+                            DevLogs
+                        </Link>
+                        <Link href="/store" className="text-gray-400 hover:text-neon-cyan transition-colors flex items-center gap-1">
+                            <Zap className="w-4 h-4" />
+                            <span className="hidden xl:inline">The Armory</span>
+                            <span className="xl:hidden">Armory</span>
+                        </Link>
+                        <Link
+                            href="/map"
+                            className="px-3 lg:px-4 py-2 rounded-lg bg-gradient-to-r from-neon-cyan to-blue-500 text-dark-bg font-bold hover:from-cyan-400 hover:to-blue-400 transition-all flex items-center gap-2"
+                        >
+                            <Rocket className="w-4 h-4" />
+                            <span className="hidden lg:inline">Start Coding</span>
+                            <span className="lg:hidden">Start</span>
+                        </Link>
+                        <Link href="/login" className="px-3 lg:px-4 py-2 rounded-lg bg-dark-panel border border-neon-cyan/30 text-neon-cyan font-medium hover:bg-neon-cyan/10 transition-all">
                             Sign In
                         </Link>
                     </nav>
+
+                    {/* Mobile Menu Button */}
+                    <button
+                        className="md:hidden p-2 rounded-lg hover:bg-dark-panel transition-colors"
+                        onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                    >
+                        {mobileMenuOpen ? (
+                            <X className="w-6 h-6 text-gray-400" />
+                        ) : (
+                            <Menu className="w-6 h-6 text-gray-400" />
+                        )}
+                    </button>
                 </div>
+
+                {/* Mobile Menu Dropdown */}
+                <AnimatePresence>
+                    {mobileMenuOpen && (
+                        <motion.div
+                            initial={{ opacity: 0, height: 0 }}
+                            animate={{ opacity: 1, height: 'auto' }}
+                            exit={{ opacity: 0, height: 0 }}
+                            className="md:hidden bg-dark-panel border-t border-gray-800 overflow-hidden"
+                        >
+                            <nav className="flex flex-col p-4 gap-2">
+                                <Link
+                                    href="/map"
+                                    className="flex items-center gap-3 p-3 rounded-lg hover:bg-dark-bg transition-colors"
+                                    onClick={() => setMobileMenuOpen(false)}
+                                >
+                                    <Map className="w-5 h-5 text-neon-cyan" />
+                                    <span>Mission Map</span>
+                                </Link>
+                                <Link
+                                    href="/leaderboard"
+                                    className="flex items-center gap-3 p-3 rounded-lg hover:bg-dark-bg transition-colors"
+                                    onClick={() => setMobileMenuOpen(false)}
+                                >
+                                    <Trophy className="w-5 h-5 text-yellow-500" />
+                                    <span>Leaderboard</span>
+                                </Link>
+                                <Link
+                                    href="/blog"
+                                    className="flex items-center gap-3 p-3 rounded-lg hover:bg-dark-bg transition-colors"
+                                    onClick={() => setMobileMenuOpen(false)}
+                                >
+                                    <FileText className="w-5 h-5 text-green-400" />
+                                    <span>DevLogs</span>
+                                </Link>
+                                <Link
+                                    href="/store"
+                                    className="flex items-center gap-3 p-3 rounded-lg hover:bg-dark-bg transition-colors"
+                                    onClick={() => setMobileMenuOpen(false)}
+                                >
+                                    <Zap className="w-5 h-5 text-neon-purple" />
+                                    <span>The Armory</span>
+                                </Link>
+                                <div className="border-t border-gray-700 my-2" />
+                                <Link
+                                    href="/map"
+                                    className="flex items-center justify-center gap-2 p-3 rounded-lg bg-gradient-to-r from-neon-cyan to-blue-500 text-dark-bg font-bold"
+                                    onClick={() => setMobileMenuOpen(false)}
+                                >
+                                    <Rocket className="w-5 h-5" />
+                                    Start Coding
+                                </Link>
+                                <Link
+                                    href="/login"
+                                    className="flex items-center justify-center gap-2 p-3 rounded-lg border border-neon-cyan/30 text-neon-cyan font-medium"
+                                    onClick={() => setMobileMenuOpen(false)}
+                                >
+                                    Sign In
+                                </Link>
+                            </nav>
+                        </motion.div>
+                    )}
+                </AnimatePresence>
             </header>
 
             {/* Hero Section */}
@@ -188,9 +293,8 @@ export default function Home() {
                                 Master by Failing
                             </span>
                         </h2>
-                        <p className="text-xl text-gray-400 max-w-2xl mx-auto mb-8">
-                            We transform technical books into interactive adventures.
-                            Write real code, design real systems, manage real crises.
+                        <p className="text-xl text-gray-400 max-w-3xl mx-auto mb-8">
+                            The first flight simulator for Software Architects. Don't just read about distributed systems—build them, break them, and fix them in a live production environment.
                         </p>
 
                         {/* Stats */}
@@ -198,6 +302,29 @@ export default function Home() {
                             <StatCard icon={Code} value="60+" label="Code Challenges" color="#00d4ff" />
                             <StatCard icon={Zap} value="15" label="Crisis Simulations" color="#f59e0b" />
                             <StatCard icon={Trophy} value="6" label="Zones" color="#10b981" />
+                        </div>
+
+                        {/* Hero CTAs */}
+                        <div className="hero-buttons-container">
+                            <Link href="/map">
+                                <motion.button
+                                    whileHover={{ scale: 1.05 }}
+                                    whileTap={{ scale: 0.95 }}
+                                    className="hero-btn btn-primary flex items-center gap-2"
+                                >
+                                    <Rocket className="w-5 h-5" />
+                                    Enter the Simulation
+                                </motion.button>
+                            </Link>
+                            <Link href="/store">
+                                <motion.button
+                                    whileHover={{ scale: 1.05 }}
+                                    whileTap={{ scale: 0.95 }}
+                                    className="hero-btn btn-secondary flex items-center gap-2"
+                                >
+                                    Explore Resources
+                                </motion.button>
+                            </Link>
                         </div>
                     </motion.div>
                 </div>
@@ -212,10 +339,10 @@ export default function Home() {
                         transition={{ delay: 0.3 }}
                     >
                         <h3 className="text-3xl font-display font-bold mb-2 text-center">
-                            Library
+                            Active Simulations
                         </h3>
                         <p className="text-gray-400 text-center mb-12">
-                            Every book is a world waiting to be explored
+                            Choose your battlefield. Master the stack from Clean Code to Cloud-Native Scale.
                         </p>
 
                         {/* Book Grid */}
@@ -224,6 +351,7 @@ export default function Home() {
                                 title="CodexLudus"
                                 subtitle="Software Architecture 3.0"
                                 theme="Cyberpunk"
+                                status="Season 1"
                                 level={12}
                                 maxLevel={50}
                                 isLocked={false}
@@ -309,7 +437,7 @@ export default function Home() {
             {/* Footer */}
             <footer className="py-8 px-6 border-t border-gray-800">
                 <div className="max-w-7xl mx-auto flex items-center justify-between text-sm text-gray-500">
-                    <p>© 2026 SysCraftLab. Learn by coding.</p>
+                    <p>© 2026 LabLudus. Learn by coding.</p>
                     <p className="font-mono">v0.1.0-mvp</p>
                 </div>
             </footer>

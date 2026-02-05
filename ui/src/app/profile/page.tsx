@@ -85,7 +85,7 @@ const ranks = [
 ];
 
 // Hexagon Skill Graph Component
-function HexagonSkillGraph({ skills }: { skills: typeof skills }) {
+function HexagonSkillGraph({ skills }: { skills: Skill[] }) {
     const center = { x: 150, y: 150 };
     const radius = 100;
     const points = 6;
